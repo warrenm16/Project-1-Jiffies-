@@ -22,7 +22,7 @@
 
 #define BUFFER_SIZE 128
 
-#define PROC_NAME "hello"
+#define PROC_NAME "jiffies"
 #define MESSAGE "Hello World\n"
 
 /**
@@ -88,8 +88,8 @@ ssize_t proc_read(struct file *file, char __user *usr_buf, size_t count, loff_t 
 
         completed = 1;
 
-        rv = sprintf(buffer, "Hello World\n");
-
+        rv = sprintf(buffer, "In proc_read(), the jiffies is: %lu\n", jiffies);
+        printk (KERN_INFO "In proc_read(), the jiffies is: %lu\n", jiffies)
         // copies the contents of buffer to userspace usr_buf
         copy_to_user(usr_buf, buffer, rv);
 
@@ -102,6 +102,6 @@ module_init( proc_init );
 module_exit( proc_exit );
 
 MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Hello Module");
+MODULE_DESCRIPTION("Jiffies Module");
 MODULE_AUTHOR("SGG");
 
